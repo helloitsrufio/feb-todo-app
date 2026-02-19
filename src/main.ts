@@ -15,8 +15,8 @@ function addListItem(event: KeyboardEvent) {
       id: crypto.randomUUID(),
     });
     textInput.value = "";
-    console.log(storage);
   }
+  displayList();
 }
 
 //when box is checked, cross out
@@ -31,7 +31,7 @@ function addListItem(event: KeyboardEvent) {
 function displayList() {
   const templateItem =
     document.querySelector<HTMLTemplateElement>("#listItemTemplate");
-  console.log(templateItem);
+
   let listItemFragment = document.createDocumentFragment();
   for (const item of storage) {
     const listItem = templateItem?.content.firstElementChild!.cloneNode(
@@ -53,16 +53,12 @@ function displayList() {
 
     listItemFragment.appendChild(listItem);
   }
+
   const listContainer = document.querySelector<HTMLUListElement>("#list");
 
   listContainer!.innerHTML = "";
   listContainer?.appendChild(listItemFragment);
-  console.log(listContainer);
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  displayList();
-});
 
 // //Edit list item (update)
 // document
