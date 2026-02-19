@@ -18,22 +18,13 @@
       />
     </div>
 
-    <ul>
+    <ul id="list"></ul>
+
+    <template id="listItemTemplate">
       <li>
         <div>
-          <input
-            type="checkbox"
-            id="listItemCheckbox"
-            name="listItemCheckbox"
-            value=""
-          />
-          <input
-            type="text"
-            id="listItem"
-            name="listItem"
-            value=""
-            placeholder="hello!"
-          />
+          <input type="checkbox" name="listItemCheckbox" value="" />
+          <input type="text" name="listItem" value="" placeholder="hello!" />
         </div>
         <div>
           <button type="button" id="deleteButton">
@@ -65,7 +56,7 @@
           </button>
         </div>
       </li>
-    </ul>
+    </template>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
