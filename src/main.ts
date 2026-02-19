@@ -1,13 +1,16 @@
 import "./style.css";
+import { storage } from "./todoStorage.ts";
 
 //create a list item
 document
   .querySelector<HTMLInputElement>("#listItemContent")!
   .addEventListener<"keydown">("keydown", addListItemContent);
+const textInput = document.querySelector<HTMLInputElement>("#listItemContent")!;
 
 function addListItemContent(event: KeyboardEvent) {
   if (event.key == "Enter") {
-    console.log("i entered!");
+    storage.push({ listItemContent: textInput.value, checked: false });
+    console.log(storage);
   }
 }
 
