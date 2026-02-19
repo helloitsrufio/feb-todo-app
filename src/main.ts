@@ -3,11 +3,11 @@ import { storage } from "./todoStorage.ts";
 
 //create a list item
 document
-  .querySelector<HTMLInputElement>("#listItemContent")!
-  .addEventListener<"keydown">("keydown", addListItemContent);
-const textInput = document.querySelector<HTMLInputElement>("#listItemContent")!;
+  .querySelector<HTMLInputElement>("#addListItem")!
+  .addEventListener<"keydown">("keydown", addListItem);
+const textInput = document.querySelector<HTMLInputElement>("#addListItem")!;
 
-function addListItemContent(event: KeyboardEvent) {
+function addListItem(event: KeyboardEvent) {
   if (event.key == "Enter") {
     storage.push({
       listItemContent: textInput.value,
