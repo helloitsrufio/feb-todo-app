@@ -14,6 +14,7 @@ function addListItemContent(event: KeyboardEvent) {
       checked: false,
       id: crypto.randomUUID(),
     });
+    textInput.value = "";
     console.log(storage);
   }
 }
