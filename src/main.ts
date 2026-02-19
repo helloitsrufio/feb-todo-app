@@ -9,7 +9,11 @@ const textInput = document.querySelector<HTMLInputElement>("#listItemContent")!;
 
 function addListItemContent(event: KeyboardEvent) {
   if (event.key == "Enter") {
-    storage.push({ listItemContent: textInput.value, checked: false });
+    storage.push({
+      listItemContent: textInput.value,
+      checked: false,
+      id: crypto.randomUUID(),
+    });
     console.log(storage);
   }
 }
