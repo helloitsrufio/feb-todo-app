@@ -42,12 +42,12 @@ function displayList() {
       'input[name="listItemCheckbox"]',
     );
 
-    const textInput = listItem.querySelector<HTMLInputElement>(
+    const textContent = listItem.querySelector<HTMLInputElement>(
       'input[name="listItem"]',
     );
 
     checkbox!.checked = item.checked;
-    textInput!.value = item.listItemContent;
+    textContent!.value = item.listItemContent;
 
     listItem.dataset.id = item.id;
 
