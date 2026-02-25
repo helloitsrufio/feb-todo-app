@@ -60,14 +60,33 @@ function displayList() {
   listContainer?.appendChild(listItemFragment);
 }
 
-// //Edit list item (update)
+//Edit list item (update)
+document
+  .querySelector<HTMLUListElement>("#list")!
+  .addEventListener<"click">("click", editItem);
+
 // document
-//   .querySelector<HTMLDivElement>("#editButton")!
+//   .querySelector<HTMLButtonElement>("#editButton")!
 //   .addEventListener<"click">("click", editItem);
 
-// function editItem(event: PointerEvent) {
-//   console.log("edited!");
-// }
+function editItem(event: PointerEvent) {
+  if (!(event.target instanceof Element)) return;
+  if (event.target.closest(".editButton")) {
+    let currentItem: HTMLLIElement = event.target.closest(".listElement")!;
+    if (!currentItem || !currentItem.dataset.id) {
+      return console.error("The item you're looking for doesn't exist!");
+    }
+    let storageItemId = storage.find((e) => {
+      return e.id == currentItem.dataset.id;
+    });
+  }
+}
+// see if the button is even there
+//if it is! then we need to grab the id of the nearest li elem
+// console.log(event.target);
+// console.log("clicked the edit button!", event.target.closest(".editButton"));
+//get dataset val of input that the button belongs to!
+// compare this val to the storage id to apply logic (reset val i think?)
 
 // //Delete list item
 // document
