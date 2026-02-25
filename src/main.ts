@@ -28,6 +28,8 @@ function addListItem(event: KeyboardEvent) {
 //   console.log("changed!");
 // }
 
+//Need to rename basically every variable because the names are bad and so confusing.
+//Also, need to add check item functionality
 function displayList() {
   const templateItem =
     document.querySelector<HTMLTemplateElement>("#listItemTemplate");
@@ -63,20 +65,17 @@ function displayList() {
 //Edit list item (update)
 document
   .querySelector<HTMLUListElement>("#list")!
-  .addEventListener<"click">("click", editItem);
+  .addEventListener<"click">("click", editInputItem);
 
-// document
-//   .querySelector<HTMLButtonElement>("#editButton")!
-//   .addEventListener<"click">("click", editItem);
-
-function editItem(event: PointerEvent) {
+function editInputItem(event: PointerEvent) {
   if (!(event.target instanceof Element)) return;
   if (event.target.closest(".editButton")) {
     let currentItem: HTMLLIElement = event.target.closest(".listElement")!;
     if (!currentItem || !currentItem.dataset.id) {
       return console.error("The item you're looking for doesn't exist!");
     }
-    const storageItemId = storage.find((e) => {
+
+    const storageItem = storage.find((e) => {
       return e.id == currentItem.dataset.id;
     });
 
@@ -87,20 +86,13 @@ function editItem(event: PointerEvent) {
       return;
     }
 
-    let editedText: TaskItem = {
-      listItemContent: editedListItemContent.value,
-      checked: false,
-      id: currentItem.dataset.id,
-    };
-    console.log(editedText);
+    if (!storageItem) return;
+    console.log(editedListItemContent);
+    storageItem.listItemContent = editedListItemContent.value;
+
+    displayList();
   }
 }
-// see if the button is even there
-//if it is! then we need to grab the id of the nearest li elem
-// console.log(event.target);
-// console.log("clicked the edit button!", event.target.closest(".editButton"));
-//get dataset val of input that the button belongs to!
-// compare this val to the storage id to apply logic (reset val i think?)
 
 // //Delete list item
 // document
