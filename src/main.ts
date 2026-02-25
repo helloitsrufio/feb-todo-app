@@ -76,9 +76,23 @@ function editItem(event: PointerEvent) {
     if (!currentItem || !currentItem.dataset.id) {
       return console.error("The item you're looking for doesn't exist!");
     }
-    let storageItemId = storage.find((e) => {
+    const storageItemId = storage.find((e) => {
       return e.id == currentItem.dataset.id;
     });
+
+    let editedListItemContent = currentItem.querySelector<HTMLInputElement>(
+      'input[name="listItem"]',
+    );
+    if (!editedListItemContent) {
+      return;
+    }
+
+    let editedText: TaskItem = {
+      listItemContent: editedListItemContent.value,
+      checked: false,
+      id: currentItem.dataset.id,
+    };
+    console.log(editedText);
   }
 }
 // see if the button is even there
