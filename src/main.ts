@@ -69,15 +69,15 @@ document
 
 function editInputItem(event: PointerEvent) {
   if (!(event.target instanceof Element)) return;
+  let currentItem: HTMLLIElement = event.target.closest(".listElement")!;
+  const storageItem = storage.find((e) => {
+    return e.id == currentItem.dataset.id;
+  });
+  //edit button functionality
   if (event.target.closest(".editButton")) {
-    let currentItem: HTMLLIElement = event.target.closest(".listElement")!;
     if (!currentItem || !currentItem.dataset.id) {
       return console.error("The item you're looking for doesn't exist!");
     }
-
-    const storageItem = storage.find((e) => {
-      return e.id == currentItem.dataset.id;
-    });
 
     let editedListItemContent = currentItem.querySelector<HTMLInputElement>(
       'input[name="listItem"]',
@@ -87,7 +87,7 @@ function editInputItem(event: PointerEvent) {
     }
 
     if (!storageItem) return;
-    console.log(editedListItemContent);
+
     storageItem.listItemContent = editedListItemContent.value;
 
     displayList();
