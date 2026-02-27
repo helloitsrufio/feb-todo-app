@@ -35,7 +35,9 @@ function displayList() {
     document.querySelector<HTMLTemplateElement>("#listItemTemplate");
 
   let listItemFragment = document.createDocumentFragment();
-  for (const item of storage) {
+  let sortedStorage = storage.sort((a, b) => +a.checked - +b.checked);
+
+  for (const item of sortedStorage) {
     const listItem = templateItem?.content.firstElementChild!.cloneNode(
       true,
     ) as HTMLLIElement;
@@ -92,15 +94,15 @@ function editInputItem(event: PointerEvent) {
     displayList();
   }
 
-  //checkbox li item functionality
+  //check and uncheck checkbox
   let editedCheckbox = currentItem.querySelector<HTMLInputElement>(
     'input[name="listItemCheckbox"]',
   );
-  if (!editedCheckbox) return;
 
-  if (!storageItem) return;
-
-  storageItem.checked = editedCheckbox.checked;
+  editedCheckbox!.addEventListener<"change">("change", () => {
+    storageItem!.checked = editedCheckbox!.checked;
+    displayList();
+  });
 }
 
 // //Delete list item
