@@ -89,9 +89,18 @@ function editInputItem(event: PointerEvent) {
     if (!storageItem) return;
 
     storageItem.listItemContent = editedListItemContent.value;
-
     displayList();
   }
+
+  //checkbox li item functionality
+  let editedCheckbox = currentItem.querySelector<HTMLInputElement>(
+    'input[name="listItemCheckbox"]',
+  );
+  if (!editedCheckbox) return;
+
+  if (!storageItem) return;
+
+  storageItem.checked = editedCheckbox.checked;
 }
 
 // //Delete list item
