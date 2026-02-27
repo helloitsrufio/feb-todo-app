@@ -4,6 +4,8 @@ export type TaskItem = {
   listItemContent: string;
   checked: boolean;
   id: string;
+  creationDate: number;
+  completionDate?: Date;
 };
 
 export let storage: TaskItem[] = [];

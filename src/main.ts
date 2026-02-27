@@ -13,6 +13,7 @@ function addListItem(event: KeyboardEvent) {
       listItemContent: textInput.value,
       checked: false,
       id: crypto.randomUUID(),
+      creationDate: Date.now(),
     });
     textInput.value = "";
   }
