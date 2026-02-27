@@ -13,6 +13,12 @@ function addListItem(event: KeyboardEvent) {
       listItemContent: textInput.value,
       checked: false,
       id: crypto.randomUUID(),
+      //we need to add sort by date functionality where we sort by the created date if not checked, and if it is checked, then sort by completion date
+      //if checked, put completion date to now (timestamp), if unchecked, set it to null/undefined
+      // merge the 2 arrays?
+      //when an item is unset, maybe unset completion date?
+      // i can do this!
+      //it can be done!
       creationDate: Date.now(),
     });
     textInput.value = "";
