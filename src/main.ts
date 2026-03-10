@@ -13,13 +13,6 @@ function addListItem(event: KeyboardEvent) {
       listItemContent: textInput.value,
       checked: false,
       id: crypto.randomUUID(),
-      //we need to add sort by date functionality where we sort by the created date if not checked, and if it is checked, then sort by completion date
-      //if checked, put completion date to now (timestamp), if unchecked, set it to null/undefined
-      // merge the 2 arrays? One arr is going to be completed items, one is going to be uncompleted items.
-      //will need map or filter method to get completed/uncompleted items in distinct arrs
-      //when an item is unset, maybe unset completion date?
-      // i can do this!
-      //it can be done!
       creationDate: Date.now(),
     });
     textInput.value = "";
@@ -43,7 +36,22 @@ function displayList() {
     document.querySelector<HTMLTemplateElement>("#listItemTemplate");
 
   let listItemFragment = document.createDocumentFragment();
-  let sortedStorage = storage.sort((a, b) => +a.checked - +b.checked);
+
+  // sort unchecked todos
+  const sortedUncheckedStorage = storage
+    .filter((item) => !item.checked)
+    .sort((a, b) => a.creationDate - b.creationDate);
+
+  // sort checked todos
+  const sortedCheckedStorage = storage
+    .filter((item) => item.checked)
+    .sort((a, b) => {
+      return (
+        (a.completionDate?.getTime() ?? 0) - (b.completionDate?.getTime() ?? 0)
+      );
+    });
+
+  const sortedStorage = sortedUncheckedStorage.concat(sortedCheckedStorage);
 
   for (const item of sortedStorage) {
     const listItem = templateItem?.content.firstElementChild!.cloneNode(
@@ -109,6 +117,7 @@ function editInputItem(event: PointerEvent) {
 
   editedCheckbox!.addEventListener<"change">("change", () => {
     storageItem!.checked = editedCheckbox!.checked;
+    storageItem!.completionDate = new Date();
     displayList();
   });
 }
