@@ -1,5 +1,14 @@
 import "./style.css";
-import { storage, type TaskItem } from "./todoStorage.ts";
+
+type TaskItem = {
+  listItemContent: string;
+  checked: boolean;
+  id: string;
+  creationDate: number;
+  completionDate?: Date;
+};
+
+let storage: TaskItem[] = [];
 
 //create a list item
 document
@@ -88,14 +97,22 @@ document
 function editInputItem(event: PointerEvent) {
   if (!(event.target instanceof Element)) return;
   let currentItem: HTMLLIElement = event.target.closest(".listElement")!;
+
+  //null check
+  if (!currentItem || !currentItem.dataset.id) {
+    return;
+  }
+
   const storageItem = storage.find((e) => {
     return e.id == currentItem.dataset.id;
   });
+
   //edit button functionality
   if (event.target.closest(".editButton")) {
-    if (!currentItem || !currentItem.dataset.id) {
-      return console.error("The item you're looking for doesn't exist!");
-    }
+    //commented out temporarily b/c I am unsure if this is needed or not, but potentially...not?
+    // if (!currentItem || !currentItem.dataset.id) {
+    //   return console.error("The item you're looking for doesn't exist!");
+    // }
 
     let editedListItemContent = currentItem.querySelector<HTMLInputElement>(
       'input[name="listItem"]',
@@ -122,11 +139,26 @@ function editInputItem(event: PointerEvent) {
   });
 }
 
-// //Delete list item
-// document
-//   .querySelector<HTMLDivElement>("#deleteButton")!
-//   .addEventListener<"click">("click", deleteItem);
+//Delete list item
+document
+  .querySelector<HTMLUListElement>("#list")!
+  .addEventListener<"click">("click", deleteItem);
 
-// function deleteItem(event: PointerEvent) {
-//   console.log("deleted!");
-// }
+function deleteItem(event: PointerEvent) {
+  if (!(event.target instanceof Element)) return;
+  //on click on delete button
+  let currentItem: HTMLLIElement = event.target.closest(".listElement")!;
+  if (event.target.closest(".deleteButton")) {
+    if (!currentItem || !currentItem.dataset.id) {
+      return console.error("The item you're looking for doesn't exist!");
+    }
+    //grab a specific elem in the arr
+    const storageItem = storage.find((e) => {
+      return e.id == currentItem.dataset.id;
+    });
+    //reassign storage to filter out specific item we grabbed
+    storage = storage.filter((item) => !(storageItem == item));
+    console.log(storage);
+    displayList();
+  }
+}
