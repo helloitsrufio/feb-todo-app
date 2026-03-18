@@ -26,6 +26,7 @@ function addListItem(event: KeyboardEvent) {
     });
     textInput.value = "";
   }
+  localStorage.setItem("1", JSON.stringify(storage));
   displayList();
 }
 
@@ -43,6 +44,8 @@ function addListItem(event: KeyboardEvent) {
 function displayList() {
   const templateItem =
     document.querySelector<HTMLTemplateElement>("#listItemTemplate");
+
+  storage = JSON.parse(localStorage.getItem("1")!);
 
   let listItemFragment = document.createDocumentFragment();
 
@@ -103,6 +106,8 @@ function editInputItem(event: PointerEvent) {
     return;
   }
 
+  //TODO: we need to reassign val of storage to be localStorage here and also in our delete, but we keep doing this repeatedly, so probably would be valuable to make a helper function that reassigns the value of storage and to just call it in each of theese functions.
+
   const storageItem = storage.find((e) => {
     return e.id == currentItem.dataset.id;
   });
@@ -158,7 +163,8 @@ function deleteItem(event: PointerEvent) {
     });
     //reassign storage to filter out specific item we grabbed
     storage = storage.filter((item) => !(storageItem == item));
-    console.log(storage);
     displayList();
   }
 }
+
+displayList();
