@@ -69,6 +69,9 @@ function displayList() {
 
   const sortedStorage = sortedUncheckedStorage.concat(sortedCheckedStorage);
 
+  //TODO: write this next part better? null checks? no 'as TYPE'?
+  //if(!template item {what happens})
+  //(!firstElemChild {not clone})
   for (const item of sortedStorage) {
     const listItem = templateItem?.content.firstElementChild!.cloneNode(
       true,
@@ -109,8 +112,6 @@ function editInputItem(event: PointerEvent) {
   if (!currentItem || !currentItem.dataset.id) {
     return;
   }
-
-  //TODO: we need to reassign val of storage to be localStorage here and also in our delete, but we keep doing this repeatedly, so probably would be valuable to make a helper function that reassigns the value of storage and to just call it in each of theese functions.
 
   const storageItem = storage.find((e) => {
     return e.id == currentItem.dataset.id;
