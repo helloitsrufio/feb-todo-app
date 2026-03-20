@@ -45,7 +45,11 @@ function displayList() {
   const templateItem =
     document.querySelector<HTMLTemplateElement>("#listItemTemplate");
 
-  storage = JSON.parse(localStorage.getItem("1")!);
+  let fetchedLocalStorage = localStorage.getItem("1");
+  if (!fetchedLocalStorage) {
+    return [];
+  }
+  storage = JSON.parse(fetchedLocalStorage);
 
   let listItemFragment = document.createDocumentFragment();
 
