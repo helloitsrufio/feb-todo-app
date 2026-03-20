@@ -47,7 +47,7 @@ function displayList() {
 
   let fetchedLocalStorage = localStorage.getItem("1");
   if (!fetchedLocalStorage) {
-    return [];
+    return [] as TaskItem[];
   }
   storage = JSON.parse(fetchedLocalStorage);
 
