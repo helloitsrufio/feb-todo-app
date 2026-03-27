@@ -167,7 +167,10 @@ function deleteItem(event: PointerEvent) {
       return e.id == currentItem.dataset.id;
     });
     //reassign storage to filter out specific item we grabbed
-    storage = storage.filter((item) => !(storageItem == item));
+    localStorage.setItem(
+      "1",
+      JSON.stringify(storage.filter((item) => !(storageItem == item))),
+    );
     displayList();
   }
 }
