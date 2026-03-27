@@ -50,6 +50,7 @@ function displayList() {
     return [] as TaskItem[];
   }
   storage = JSON.parse(fetchedLocalStorage);
+  console.log("this is where u need to look, rufibaby", storage);
 
   let listItemFragment = document.createDocumentFragment();
 
@@ -107,19 +108,21 @@ document
 function editInputItem(event: PointerEvent) {
   if (!(event.target instanceof Element)) return;
   let currentItem: HTMLLIElement = event.target.closest(".listElement")!;
-
   //null check
   if (!currentItem || !currentItem.dataset.id) {
-    return;
+    return console.error("The item you're looking for doesn't exist!");
   }
 
-  const storageItem = storage.find((e) => {
-    return e.id == currentItem.dataset.id;
+  let fetchedLocalStorage = JSON.parse(localStorage.getItem("1") ?? "");
+
+  const storageItem = fetchedLocalStorage.find((item: TaskItem) => {
+    return item.id == currentItem.dataset.id;
   });
+
+  console.log("storageItem: ", storageItem);
 
   //edit button functionality
   if (event.target.closest(".editButton")) {
-    //commented out temporarily b/c I am unsure if this is needed or not, but potentially...not?
     // if (!currentItem || !currentItem.dataset.id) {
     //   return console.error("The item you're looking for doesn't exist!");
     // }
@@ -134,6 +137,11 @@ function editInputItem(event: PointerEvent) {
     if (!storageItem) return;
 
     storageItem.listItemContent = editedListItemContent.value;
+
+    const mergedStorage = [...fetchedLocalStorage, storageItem];
+    console.log("mergedStorage, bb", mergedStorage);
+
+    localStorage.setItem("1", JSON.stringify(mergedStorage));
     displayList();
   }
 
