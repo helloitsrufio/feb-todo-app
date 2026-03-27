@@ -50,7 +50,6 @@ function displayList() {
     return [] as TaskItem[];
   }
   storage = JSON.parse(fetchedLocalStorage);
-  console.log("this is where u need to look, rufibaby", storage);
 
   let listItemFragment = document.createDocumentFragment();
 
@@ -119,8 +118,6 @@ function editInputItem(event: PointerEvent) {
     return item.id == currentItem.dataset.id;
   });
 
-  console.log("storageItem: ", storageItem);
-
   //edit button functionality
   if (event.target.closest(".editButton")) {
     // if (!currentItem || !currentItem.dataset.id) {
@@ -138,8 +135,11 @@ function editInputItem(event: PointerEvent) {
 
     storageItem.listItemContent = editedListItemContent.value;
 
-    const mergedStorage = [...fetchedLocalStorage, storageItem];
-    console.log("mergedStorage, bb", mergedStorage);
+    //TODO: index is changing upon filter (and editing in general). THIS WORKS WITH LOCAL STORAGE, but also not quite, k?
+    const filteredStorage = fetchedLocalStorage.filter(
+      (item: TaskItem) => item.id != currentItem.dataset.id,
+    );
+    const mergedStorage = [...filteredStorage, storageItem];
 
     localStorage.setItem("1", JSON.stringify(mergedStorage));
     displayList();
