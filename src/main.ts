@@ -148,7 +148,9 @@ function editInputItem(event: PointerEvent) {
   let editedCheckbox = currentItem.querySelector<HTMLInputElement>(
     'input[name="listItemCheckbox"]',
   );
-
+  //TODO:I need to change the second event listener to adjust it to localStorage, even though it looks like it's fixed! It isn't.
+  //In short, the issue is that once we changed from mem to localSt, our checkbox no longer works, even though it does actually sort. So we need to make it work again.
+  //Lark says: You need to update he local storage with new edited files and value, like the las part of the fitst event
   editedCheckbox!.addEventListener<"change">("change", () => {
     storageItem!.checked = editedCheckbox!.checked;
     storageItem!.completionDate = new Date();
