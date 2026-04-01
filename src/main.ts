@@ -135,7 +135,6 @@ function editInputItem(event: PointerEvent) {
 
     storageItem.listItemContent = editedListItemContent.value;
 
-    //TODO: index is changing upon filter (and editing in general). THIS WORKS WITH LOCAL STORAGE, but also not quite, k?
     const filteredStorage = fetchedLocalStorage.filter(
       (item: TaskItem) => item.id != currentItem.dataset.id,
     );
