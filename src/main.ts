@@ -154,6 +154,14 @@ function editInputItem(event: PointerEvent) {
   editedCheckbox!.addEventListener<"change">("change", () => {
     storageItem!.checked = editedCheckbox!.checked;
     storageItem!.completionDate = new Date();
+
+    const filteredStorage = fetchedLocalStorage.filter(
+      (item: TaskItem) => item.id != currentItem.dataset.id,
+    );
+    const mergedStorage = [...filteredStorage, storageItem];
+
+    localStorage.setItem("1", JSON.stringify(mergedStorage));
+
     displayList();
   });
 }
